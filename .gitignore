@@ -1,3 +1,6 @@
+.ruby-gemset
+.ruby-version
+
 *.rbc
 capybara-*.html
 .rspec
