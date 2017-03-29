@@ -2,7 +2,14 @@
 
 ## [Unreleased](https://github.com/dominicsayers/loglevel/tree/HEAD)
 
-[Full Changelog](https://github.com/dominicsayers/loglevel/compare/v0.1.0...HEAD)
+[Full Changelog](https://github.com/dominicsayers/loglevel/compare/v0.1.1...HEAD)
+
+**Merged pull requests:**
+
+- Loglevel release [\#2](https://github.com/dominicsayers/loglevel/pull/2) ([dominicsayers](https://github.com/dominicsayers))
+
+## [v0.1.1](https://github.com/dominicsayers/loglevel/tree/v0.1.1) (2017-03-29)
+[Full Changelog](https://github.com/dominicsayers/loglevel/compare/v0.1.0...v0.1.1)
 
 **Merged pull requests:**
 
