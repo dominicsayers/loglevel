@@ -12,7 +12,8 @@ group :development do
 end
 
 group :test do
-  gem 'mime-types', (RUBY_VERSION < '2' ? '< 3' : '> 0') # mime-types 3+ requires Ruby 2+
+  gem 'mime-types', (RUBY_VERSION < '2' ? '< 3' : '> 0') # coveralls dependency
+  gem 'listen', (RUBY_VERSION < '2' ? '< 3.1' : '> 0') # guard dependency
   gem 'coveralls'
   gem 'fuubar'
   gem 'rake' # Workaround for a bug in Rainbow 2.2.1 https://github.com/sickill/rainbow/issues/44
