@@ -5,6 +5,10 @@ AllCops:
   Exclude:
     - 'tmp/**/*'
 
+Style/MixinGrouping:
+  Exclude:
+    - 'spec/**/*.rb'
+
 Metrics/BlockLength:
   CountComments: false  # count full line comments?
   Exclude:
