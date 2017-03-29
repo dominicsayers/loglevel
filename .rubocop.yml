@@ -1,9 +1,13 @@
 ---
 AllCops:
-  TargetRubyVersion: 1.9
+  TargetRubyVersion: 2.0
   DisplayCopNames: true
   Exclude:
     - 'tmp/**/*'
+
+Style/MixinGrouping:
+  Exclude:
+    - 'spec/**/*.rb'
 
 Metrics/BlockLength:
   CountComments: false  # count full line comments?

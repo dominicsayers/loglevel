@@ -2,6 +2,7 @@
 
 source 'https://rubygems.org'
 gemspec
+ruby RUBY_VERSION
 
 group :development do
   gem 'bundler'
