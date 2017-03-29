@@ -10,6 +10,7 @@ group :development do
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-rubocop'
+  gem 'github_changelog_generator'
 end
 
 group :test do
