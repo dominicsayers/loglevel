@@ -6,7 +6,7 @@ module Loglevel
     end
 
     def help
-      logger.info <<-HELP
+      logger.info <<-HELP.gsub('        ', '')
         Usage: DEBUG=SETTING,SETTING,SETTING rails server
 
         Available settings are as follows:
