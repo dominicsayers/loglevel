@@ -18,5 +18,6 @@ group :test do
   gem 'rake' # Workaround for a bug in Rainbow 2.2.1 https://github.com/sickill/rainbow/issues/44
   gem 'rspec'
   gem 'rspec_junit_formatter'
-  gem 'simplecov', '~> 0.13'
+  gem 'simplecov'
+  gem 'codeclimate-test-reporter'
 end
