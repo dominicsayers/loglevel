@@ -4,7 +4,7 @@
 [![Gem downloads](https://img.shields.io/gem/dt/loglevel.svg)](https://rubygems.org/gems/loglevel)
 [![Build Status](https://travis-ci.org/dominicsayers/loglevel.svg?branch=master)](https://travis-ci.org/dominicsayers/loglevel)
 [![Code quality](http://img.shields.io/codeclimate/github/dominicsayers/loglevel.svg?style=flat)](https://codeclimate.com/github/dominicsayers/loglevel)
-[![Coverage Status](https://coveralls.io/repos/github/dominicsayers/loglevel/badge.svg?branch=master)](https://coveralls.io/github/dominicsayers/loglevel?branch=master)
+[![Test Coverage](https://codeclimate.com/github/dominicsayers/loglevel/badges/coverage.svg)](https://codeclimate.com/github/dominicsayers/loglevel/coverage)
 [![Dependency Status](https://gemnasium.com/badges/github.com/dominicsayers/loglevel.svg)](https://gemnasium.com/github.com/dominicsayers/loglevel)
 [![Security](https://hakiri.io/github/dominicsayers/loglevel/master.svg)](https://hakiri.io/github/dominicsayers/loglevel/master)
 
