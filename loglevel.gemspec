@@ -7,6 +7,8 @@ require 'loglevel/version'
 Gem::Specification.new do |spec|
   spec.name = 'loglevel'
   spec.version = Loglevel::VERSION
+  spec.platform = Gem::Platform::RUBY
+  spec.required_ruby_version = '>= 2.0.0'
   spec.authors = ['Dominic Sayers']
   spec.email = ['dominic@sayers.cc']
   spec.description = 'A simple gem to interact with Mailchimp through their API v3'
