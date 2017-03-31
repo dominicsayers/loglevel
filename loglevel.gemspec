@@ -11,12 +11,12 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 2.0.0'
   spec.authors = ['Dominic Sayers']
   spec.email = ['dominic@sayers.cc']
-  spec.description = 'A simple gem to interact with Mailchimp through their API v3'
-  spec.summary = 'Example: mailchimp.lists("My first list").member("ann@example.com")'
+  spec.description = 'A simple gem to control logging at runtime with an environment variable'
+  spec.summary = 'Example: LOGLEVEL=WARN rails server'
   spec.homepage = 'https://github.com/dominicsayers/loglevel'
   spec.license = 'MIT'
 
-  spec.files = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
+  spec.files = `git ls-files`.split($INPUT_RECORD_SEPARATOR).reject { |f| f =~ %r{^spec/} }
   spec.executables = spec.files.grep(%r{^bin\/}) { |f| File.basename(f) }
   spec.test_files = spec.files.grep(%r{^(test|spec|features|coverage|script)\/})
   spec.require_paths = ['lib']
