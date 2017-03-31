@@ -18,6 +18,6 @@ Gem::Specification.new do |spec|
 
   spec.files = `git ls-files`.split($INPUT_RECORD_SEPARATOR).reject { |f| f =~ %r{^spec/} }
   spec.executables = spec.files.grep(%r{^bin\/}) { |f| File.basename(f) }
-  spec.test_files = spec.files.grep(%r{^(test|spec|features|coverage|script)\/})
+  spec.test_files = spec.files.grep(%r{^(test|spec|features|coverage|script)/})
   spec.require_paths = ['lib']
 end
