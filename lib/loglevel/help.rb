@@ -1,5 +1,5 @@
 # Help
-module Loglevel
+class Loglevel
   module Help
     def help?
       lookup('HELP') || settings == ['TRUE']
@@ -23,6 +23,22 @@ module Loglevel
 
         HTTP messages will only be shown if http_logger gem is present
       HELP
+    end
+
+    def inspect
+      "#<#{self.class}: logger=#{logger_class}, device=#{device_name}, level=#{level_name}, settings=#{settings}>"
+    end
+
+    def debug
+      debug = classes.map do |klass|
+        l = klass.logger
+        d = l.instance_variable_get('@logdev')
+        f = d.filename || d.dev || 'nil'
+        v = self.class::LOGLEVELS[l.level]
+        "#{klass}: logger=#{l.class}, device=#{f}, level=#{v}"
+      end
+
+      debug.join("\n")
     end
   end
 end

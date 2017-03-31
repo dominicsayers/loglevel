@@ -1,2 +1,2 @@
 #!/bin/sh
-bundle exec irb -rubygems -I lib -r loglevel.rb
+bundle exec irb -rubygems -I lib -r logger.rb -r loglevel.rb

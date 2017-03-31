@@ -29,16 +29,15 @@ RSpec.describe Loglevel::ActiveRecord do
   end
 
   context 'NOAR' do
-    before do
-      ENV.store Loglevel::ENV_VAR_LEVEL, 'noAR' # the capitalization is intentional
-      Loglevel.setup
-    end
+    let(:loglevel) { Loglevel.setup }
 
+    before { ENV.store Loglevel::ENV_VAR_LEVEL, 'noAR' } # the capitalization is intentional
     after { ENV.delete Loglevel::ENV_VAR_LEVEL }
 
     it 'has the expected ActiveRecord settings' do
-      expect(::ActiveRecord::Base.logger).to eq Loglevel.send(:null_logger)
-      expect(::ActiveRecord::Base.logger.level).to eq Logger.const_get('FATAL')
+      loglevel # force instantiation
+      expect(::ActiveRecord::Base.logger).to eq loglevel.send(:null_logger)
+      expect(::ActiveRecord::Base.logger.level).to eq ::Logger.const_get('FATAL')
     end
   end
 end

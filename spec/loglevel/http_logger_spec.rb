@@ -29,15 +29,14 @@ RSpec.describe Loglevel::HttpLogger do
   end
 
   context 'NOHTTP' do
-    before do
-      ENV.store Loglevel::ENV_VAR_LEVEL, 'noHttp' # the capitalization is intentional
-      Loglevel.setup
-    end
+    let(:loglevel) { Loglevel.setup }
 
+    before { ENV.store Loglevel::ENV_VAR_LEVEL, 'NoHttp' } # the capitalization is intentional
     after { ENV.delete Loglevel::ENV_VAR_LEVEL }
 
     it 'has the expected HttpLogger settings' do
-      expect(::HttpLogger.logger).to eq Loglevel.send(:null_logger)
+      loglevel # force instantiation
+      expect(::HttpLogger.logger).to eq loglevel.send(:null_logger)
       expect(::HttpLogger.level).to eq :fatal
     end
   end

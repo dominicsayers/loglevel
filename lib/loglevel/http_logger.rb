@@ -1,5 +1,5 @@
 # HttpLogger-specific settings
-module Loglevel
+class Loglevel
   module HttpLogger
     def http?
       !lookup('NOHTTP')
@@ -14,13 +14,13 @@ module Loglevel
     end
 
     def setup_http_logger
-      return unless defined?(::HttpLogger) && classes.delete(::HttpLogger)
+      return unless defined?(::HttpLogger) && @classes_to_setup.delete(::HttpLogger)
       http? ? setup_http_logger_to_log : setup_http_logger_not_to_log
     end
 
     def setup_http_logger_to_log
       ::HttpLogger.logger = logger
-      ::HttpLogger.level = log_level_name.downcase.to_sym
+      ::HttpLogger.level = level_name.downcase.to_sym
       ::HttpLogger.log_response_body = response_body?
       ::HttpLogger.log_headers = request_headers?
       ::HttpLogger.ignore = [/9200/, /7474/] # ignore Elasticsearch & Neo4J

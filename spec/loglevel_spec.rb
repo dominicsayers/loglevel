@@ -29,14 +29,14 @@ RSpec.describe Loglevel do
   end
 
   context 'no environment variable' do
-    before { Loglevel.setup }
+    let(:loglevel) { Loglevel.setup }
 
     it 'has the expected logger class' do
-      expect(Loglevel.send(:logger_class)).to eq Loglevel.send(:logger_class)
+      expect(loglevel.send(:logger_class)).to eq ::Logger
     end
 
     it 'has the expected device' do
-      expect(Loglevel.send(:log_device)).to eq STDOUT
+      expect(loglevel.send(:device)).to eq STDOUT
     end
 
     it 'has the expected log level' do
@@ -56,32 +56,33 @@ RSpec.describe Loglevel do
   end
 
   context 'defaults' do
-    before do
-      ENV.store Loglevel::ENV_VAR_LEVEL, 'INFO'
-      Loglevel.setup
-    end
+    let(:loglevel) { Loglevel.setup }
 
+    before { ENV.store Loglevel::ENV_VAR_LEVEL, 'INFO' }
     after { ENV.delete Loglevel::ENV_VAR_LEVEL }
 
     it 'has the expected logger class' do
-      expect(Loglevel.send(:logger_class)).to eq ::Logger
+      expect(loglevel.send(:logger_class)).to eq ::Logger
     end
 
     it 'has the expected device' do
-      expect(Loglevel.send(:log_device)).to eq STDOUT
+      expect(loglevel.send(:device)).to eq STDOUT
     end
 
     it 'has the expected log level' do
-      expect(Rails.logger).to eq Loglevel.logger
-      expect(Rails.logger.level).to eq Logger.const_get('INFO')
+      loglevel # force instantiation
+      expect(Rails.logger).to eq loglevel.logger
+      expect(Rails.logger.level).to eq ::Logger.const_get('INFO')
     end
 
     it 'has the expected ActiveRecord::Base settings' do
-      expect(::ActiveRecord::Base.logger).to eq Loglevel.logger
-      expect(::ActiveRecord::Base.logger.level).to eq Logger.const_get('INFO')
+      loglevel # force instantiation
+      expect(::ActiveRecord::Base.logger).to eq loglevel.logger
+      expect(::ActiveRecord::Base.logger.level).to eq ::Logger.const_get('INFO')
     end
 
     it 'has the expected HttpLogger settings' do
+      loglevel # force instantiation
       expect(::HttpLogger.level).to eq :info
       expect(::HttpLogger.log_response_body).to be_truthy
       expect(::HttpLogger.log_headers).to be_truthy
@@ -111,44 +112,39 @@ RSpec.describe Loglevel do
     end
 
     context 'HTTP and ActiveRecord' do
-      before do
-        ENV.store Loglevel::ENV_VAR_LEVEL, 'WARN'
-        Loglevel.setup
-      end
+      let(:loglevel) { Loglevel.setup }
 
-      after do
-        ENV.delete Loglevel::ENV_VAR_LEVEL
-      end
+      before { ENV.store Loglevel::ENV_VAR_LEVEL, 'WARN' }
+      after { ENV.delete Loglevel::ENV_VAR_LEVEL }
 
       it 'has the expected logger class' do
-        expect(Loglevel.send(:logger_class)).to eq ::MyLogger
+        expect(loglevel.send(:logger_class)).to eq ::MyLogger
       end
 
       it 'has the expected device' do
-        expect(Loglevel.send(:log_device)).to eq STDERR
+        expect(loglevel.send(:device)).to eq STDERR
       end
 
       it 'has the expected log level' do
-        expect(Rails.logger).to eq Loglevel.logger
-        expect(Rails.logger.level).to eq Logger.const_get('WARN')
+        loglevel # force instantiation
+        expect(Rails.logger).to eq loglevel.logger
+        expect(Rails.logger.level).to eq ::Logger.const_get('WARN')
       end
     end
 
     context 'HTTP but not ActiveRecord' do
-      before do
-        ENV.store Loglevel::ENV_VAR_LEVEL, 'WARN,NOBODY,NOHEADERS,NOAR'
-        Loglevel.setup
-      end
+      let(:loglevel) { Loglevel.setup }
 
-      after do
-        ENV.delete Loglevel::ENV_VAR_LEVEL
-      end
+      before { ENV.store Loglevel::ENV_VAR_LEVEL, 'WARN,NOBODY,NOHEADERS,NOAR' }
+      after { ENV.delete Loglevel::ENV_VAR_LEVEL }
 
       it 'has the expected ActiveRecord::Base settings' do
-        expect(::ActiveRecord::Base.logger).to eq Loglevel.send(:null_logger)
+        loglevel # force instantiation
+        expect(::ActiveRecord::Base.logger).to eq loglevel.send(:null_logger)
       end
 
       it 'has the expected HttpLogger settings' do
+        loglevel # force instantiation
         expect(::HttpLogger.level).to eq :warn
         expect(::HttpLogger.log_response_body).to be_falsey
         expect(::HttpLogger.log_headers).to be_falsey
@@ -157,21 +153,19 @@ RSpec.describe Loglevel do
     end
 
     context 'ActiveRecord but not HTTP' do
-      before do
-        ENV.store Loglevel::ENV_VAR_LEVEL, 'WARN,NOHTTP'
-        Loglevel.setup
-      end
+      let(:loglevel) { Loglevel.setup }
 
-      after do
-        ENV.delete Loglevel::ENV_VAR_LEVEL
-      end
+      before { ENV.store Loglevel::ENV_VAR_LEVEL, 'WARN,NOHTTP' }
+      after { ENV.delete Loglevel::ENV_VAR_LEVEL }
 
       it 'has the expected ActiveRecord::Base settings' do
-        expect(::ActiveRecord::Base.logger).to eq Loglevel.logger
-        expect(::ActiveRecord::Base.logger.level).to eq Logger.const_get('WARN')
+        loglevel # force instantiation
+        expect(::ActiveRecord::Base.logger).to eq loglevel.logger
+        expect(::ActiveRecord::Base.logger.level).to eq ::Logger.const_get('WARN')
       end
 
       it 'has the expected HttpLogger settings' do
+        loglevel # force instantiation
         expect(::HttpLogger.level).to eq :fatal
         expect(::HttpLogger.log_response_body).to be_falsey
         expect(::HttpLogger.log_headers).to be_falsey

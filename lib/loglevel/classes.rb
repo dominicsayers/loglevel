@@ -1,4 +1,4 @@
-module Loglevel
+class Loglevel
   class Classes
     attr_reader :classes
 
