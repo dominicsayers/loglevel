@@ -1,6 +1,8 @@
 # HttpLogger-specific settings
 class Loglevel
   module HttpLogger
+    private
+
     def http?
       !lookup('NOHTTP')
     end

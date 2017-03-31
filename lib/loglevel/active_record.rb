@@ -1,6 +1,8 @@
 # ActiveRecord-specific settings
 class Loglevel
   module ActiveRecord
+    private
+
     def active_record?
       !lookup('NOAR')
     end

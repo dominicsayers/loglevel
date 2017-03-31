@@ -1,10 +1,6 @@
 # Help
 class Loglevel
   module Help
-    def help?
-      lookup('HELP') || settings == ['TRUE']
-    end
-
     def help
       logger.info <<-HELP.gsub('        ', '')
         Usage: DEBUG=SETTING,SETTING,SETTING rails server
@@ -39,6 +35,12 @@ class Loglevel
       end
 
       debug.join("\n")
+    end
+
+    private
+
+    def help?
+      lookup('HELP') || settings == ['TRUE']
     end
   end
 end
