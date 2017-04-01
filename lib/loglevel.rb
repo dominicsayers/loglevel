@@ -12,7 +12,15 @@ class Loglevel
 
   class << self
     def setup
-      new
+      new.setup
+    end
+
+    def inspect
+      new.inspect
+    end
+
+    def debug
+      new.debug
     end
   end
 
@@ -27,18 +35,22 @@ class Loglevel
     @level ||= logger_class.const_get level_name
   end
 
-  private
+  def setup
+    return self unless ENV[ENV_VAR_LEVEL]
 
-  def initialize
-    return unless ENV[ENV_VAR_LEVEL]
-
-    @classes = Loglevel::Classes.new.classes
     @settings = nil
     @logger = nil
     @level = nil
 
     setup_classes
     announce
+    self
+  end
+
+  private
+
+  def initialize
+    @classes = Loglevel::Classes.new.classes
   end
 
   def setup_classes
@@ -100,5 +112,3 @@ class Loglevel
   include Loglevel::HttpLogger
   include Loglevel::Help
 end
-
-Loglevel.setup

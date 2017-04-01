@@ -173,4 +173,14 @@ RSpec.describe Loglevel do
       end
     end
   end
+
+  context 'class methods' do
+    it 'shows information about itself' do
+      expect(Loglevel.inspect).to eq '#<Loglevel: logger=Logger, device=STDOUT, level=INFO, settings=[]>'
+    end
+
+    it 'shows debug information about logged classes' do
+      expect(Loglevel.debug).to be_a String
+    end
+  end
 end
