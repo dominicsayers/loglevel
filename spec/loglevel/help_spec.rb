@@ -10,7 +10,7 @@ RSpec.describe Loglevel::Help do
       end
 
       class MyLogger
-        INFO = 1
+        WARN = 1
         attr_accessor :level
 
         def initialize(device)
@@ -40,7 +40,7 @@ RSpec.describe Loglevel::Help do
 
     it 'shows information about itself' do
       expect(Loglevel.setup.inspect).to eq(
-        '#<Loglevel: logger=MyLogger, device=MyDevice, level=INFO, settings=["HELP"]>'
+        '#<Loglevel: logger=MyLogger, device=MyDevice, level=WARN, settings=["HELP"]>'
       )
     end
 

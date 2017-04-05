@@ -114,7 +114,7 @@ RSpec.describe Loglevel do
     context 'HTTP and ActiveRecord' do
       let(:loglevel) { Loglevel.setup }
 
-      before { ENV.store Loglevel::ENV_VAR_LEVEL, 'WARN' }
+      before { ENV.store Loglevel::ENV_VAR_LEVEL, 'INFO' }
       after { ENV.delete Loglevel::ENV_VAR_LEVEL }
 
       it 'has the expected logger class' do
@@ -128,14 +128,14 @@ RSpec.describe Loglevel do
       it 'has the expected log level' do
         loglevel # force instantiation
         expect(Rails.logger).to eq loglevel.logger
-        expect(Rails.logger.level).to eq ::Logger.const_get('WARN')
+        expect(Rails.logger.level).to eq ::Logger.const_get('INFO')
       end
     end
 
     context 'HTTP but not ActiveRecord' do
       let(:loglevel) { Loglevel.setup }
 
-      before { ENV.store Loglevel::ENV_VAR_LEVEL, 'WARN,NOBODY,NOHEADERS,NOAR' }
+      before { ENV.store Loglevel::ENV_VAR_LEVEL, 'INFO,NOBODY,NOHEADERS,NOAR' }
       after { ENV.delete Loglevel::ENV_VAR_LEVEL }
 
       it 'has the expected ActiveRecord::Base settings' do
@@ -145,7 +145,7 @@ RSpec.describe Loglevel do
 
       it 'has the expected HttpLogger settings' do
         loglevel # force instantiation
-        expect(::HttpLogger.level).to eq :warn
+        expect(::HttpLogger.level).to eq :info
         expect(::HttpLogger.log_response_body).to be_falsey
         expect(::HttpLogger.log_headers).to be_falsey
         expect(::HttpLogger.ignore).to include(/9200/, /7474/)
@@ -155,13 +155,13 @@ RSpec.describe Loglevel do
     context 'ActiveRecord but not HTTP' do
       let(:loglevel) { Loglevel.setup }
 
-      before { ENV.store Loglevel::ENV_VAR_LEVEL, 'WARN,NOHTTP' }
+      before { ENV.store Loglevel::ENV_VAR_LEVEL, 'INFO,NOHTTP' }
       after { ENV.delete Loglevel::ENV_VAR_LEVEL }
 
       it 'has the expected ActiveRecord::Base settings' do
         loglevel # force instantiation
         expect(::ActiveRecord::Base.logger).to eq loglevel.logger
-        expect(::ActiveRecord::Base.logger.level).to eq ::Logger.const_get('WARN')
+        expect(::ActiveRecord::Base.logger.level).to eq ::Logger.const_get('INFO')
       end
 
       it 'has the expected HttpLogger settings' do
@@ -176,7 +176,7 @@ RSpec.describe Loglevel do
 
   context 'class methods' do
     it 'shows information about itself' do
-      expect(Loglevel.inspect).to eq '#<Loglevel: logger=Logger, device=STDOUT, level=INFO, settings=[]>'
+      expect(Loglevel.inspect).to eq '#<Loglevel: logger=Logger, device=STDOUT, level=WARN, settings=[]>'
     end
 
     it 'shows debug information about logged classes' do

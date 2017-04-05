@@ -75,7 +75,7 @@ class Loglevel
   end
 
   def level_name
-    (LOGLEVELS & settings).first || 'INFO'
+    (LOGLEVELS & settings).first || 'WARN'
   end
 
   def logger_class
