@@ -19,7 +19,7 @@ class Loglevel
     end
 
     def class_names
-      @class_names ||= passed_class_names | %w(Rails ActiveRecord::Base HttpLogger)
+      @class_names ||= passed_class_names | %w[Rails ActiveRecord::Base HttpLogger]
     end
 
     def passed_class_names

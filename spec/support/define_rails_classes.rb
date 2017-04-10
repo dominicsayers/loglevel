@@ -50,7 +50,7 @@ module HttpLogger
       logger.level = LEVELS.index(value)
     end
 
-    LEVELS = %i[debug info warn error fatal unknown]
+    LEVELS = %i[debug info warn error fatal unknown].freeze
   end
 end
 

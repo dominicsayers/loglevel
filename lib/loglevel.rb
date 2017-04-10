@@ -3,13 +3,14 @@ require 'loglevel/classes'
 require 'loglevel/active_record'
 require 'loglevel/http_logger'
 require 'loglevel/help'
+require 'loglevel/logger_analyzer'
 
 class Loglevel
   ENV_VAR_LEVEL   = 'LOGLEVEL'.freeze
   ENV_VAR_LOGGER  = 'LOGLEVEL_LOGGER'.freeze
   ENV_VAR_DEVICE  = 'LOGLEVEL_DEVICE'.freeze
   ENV_VAR_CLASSES = 'LOGLEVEL_CLASSES'.freeze
-  LOGLEVELS = %w(DEBUG INFO WARN ERROR FATAL UNKNOWN).freeze
+  LOGLEVELS = %w[DEBUG INFO WARN ERROR FATAL UNKNOWN].freeze
 
   class << self
     def setup
@@ -81,8 +82,8 @@ class Loglevel
 
   def logger_class
     Object.const_get logger_class_name
-  rescue NameError => e
-    fail Loglevel::Exception::BadLoggerClass, "Can't find logger class #{logger_class_name} - have you required it?"
+  rescue NameError
+    raise Loglevel::Exception::BadLoggerClass, "Can't find logger class #{logger_class_name} - have you required it?"
   end
 
   def logger_class_name
@@ -94,7 +95,7 @@ class Loglevel
   end
 
   def device
-    %w(STDOUT STDERR).include?(device_name) ? Object.const_get(device_name) : device_name
+    %w[STDOUT STDERR].include?(device_name) ? Object.const_get(device_name) : device_name
   end
 
   def device_name
