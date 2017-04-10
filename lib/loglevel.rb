@@ -12,7 +12,7 @@ class Loglevel
   ENV_VAR_CLASSES = 'LOGLEVEL_CLASSES'.freeze
   LOGLEVELS = %w[DEBUG INFO WARN ERROR FATAL UNKNOWN].freeze
 
-  LOGLEVELS.each_with_index { |k, v| self.const_set(k, v) }
+  LOGLEVELS.each_with_index { |k, v| const_set(k, v) }
 
   class << self
     def setup
