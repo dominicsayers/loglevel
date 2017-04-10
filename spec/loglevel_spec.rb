@@ -47,13 +47,13 @@ RSpec.describe Loglevel do
     it 'has the expected log level' do
       loglevel # force instantiation
       expect(Rails.logger).to eq loglevel.logger
-      expect(Rails.logger.level).to eq MyDefaultLogger.const_get('WARN')
+      expect(Rails.logger.level).to eq Loglevel::WARN
     end
 
     it 'has the expected ActiveRecord::Base settings' do
       loglevel # force instantiation
       expect(::ActiveRecord::Base.logger).to eq loglevel.logger
-      expect(::ActiveRecord::Base.logger.level).to eq MyDefaultLogger.const_get('WARN')
+      expect(::ActiveRecord::Base.logger.level).to eq Loglevel::WARN
     end
 
     it 'has the expected HttpLogger settings' do
@@ -103,7 +103,7 @@ RSpec.describe Loglevel do
       it 'has the expected log level' do
         loglevel # force instantiation
         expect(Rails.logger).to eq loglevel.logger
-        expect(Rails.logger.level).to eq MyLogger.const_get('INFO')
+        expect(Rails.logger.level).to eq Loglevel::INFO
       end
     end
 
@@ -136,7 +136,7 @@ RSpec.describe Loglevel do
       it 'has the expected ActiveRecord::Base settings' do
         loglevel # force instantiation
         expect(::ActiveRecord::Base.logger).to eq loglevel.logger
-        expect(::ActiveRecord::Base.logger.level).to eq MyLogger.const_get('INFO')
+        expect(::ActiveRecord::Base.logger.level).to eq Loglevel::INFO
       end
 
       it 'has the expected HttpLogger settings' do

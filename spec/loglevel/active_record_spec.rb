@@ -11,7 +11,7 @@ RSpec.describe Loglevel::ActiveRecord do
     it 'has the expected ActiveRecord settings' do
       loglevel # force instantiation
       expect(::ActiveRecord::Base.logger).to eq loglevel.send(:null_logger)
-      expect(::ActiveRecord::Base.logger.level).to eq MyDefaultLogger.const_get('FATAL')
+      expect(::ActiveRecord::Base.logger.level).to eq Loglevel::FATAL
     end
   end
 end
