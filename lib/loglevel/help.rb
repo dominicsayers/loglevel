@@ -3,7 +3,7 @@ class Loglevel
   module Help
     def help
       logger.info <<-HELP.gsub('        ', '')
-        Usage: DEBUG=SETTING,SETTING,SETTING rails server
+        Usage: LOGLEVEL=SETTING,SETTING,SETTING rails server
 
         Available settings are as follows:
         HELP      Show these options
