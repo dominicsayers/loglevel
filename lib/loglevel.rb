@@ -32,7 +32,7 @@ class Loglevel
   attr_writer :logger
 
   def logger
-    @logger ||= logger_class.new device
+    @logger ||= use_default_logger? ? default_logger : logger_class.new(device)
   end
 
   def level
@@ -83,7 +83,7 @@ class Loglevel
   end
 
   def logger_class
-    Object.const_get logger_class_name
+    use_default_logger? ? default_logger.class : Object.const_get(logger_class_name)
   rescue NameError
     raise Loglevel::Exception::BadLoggerClass, "Can't find logger class #{logger_class_name} - have you required it?"
   end
@@ -93,7 +93,15 @@ class Loglevel
   end
 
   def logger_class_name_default
-    @logger_class_default ||= defined?(::Rails) && ::Rails.logger ? ::Rails.logger.class.name : 'Logger'
+    @logger_class_default ||= default_logger ? default_logger.class.name : 'Logger'
+  end
+
+  def use_default_logger?
+    !ENV[ENV_VAR_LOGGER] && !ENV[ENV_VAR_DEVICE] && !default_logger.nil?
+  end
+
+  def default_logger
+    @default_logger ||= ::Rails.logger if defined?(::Rails)
   end
 
   def device
