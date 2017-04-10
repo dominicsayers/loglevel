@@ -1,32 +1,6 @@
-require 'logger'
-
 RSpec.describe Loglevel::HttpLogger do
-  before do
-    class MyClass
-      class << self
-        attr_accessor :logger
-      end
-    end
-
-    class Rails < MyClass; end
-
-    module ActiveRecord
-      class Base < Rails; end
-    end
-
-    class HttpLogger < Rails
-      class << self
-        attr_accessor :level, :log_response_body, :log_headers, :ignore
-      end
-    end
-  end
-
-  after do
-    Object.send(:remove_const, :MyClass)
-    Object.send(:remove_const, :Rails)
-    Object.send(:remove_const, :ActiveRecord)
-    Object.send(:remove_const, :HttpLogger)
-  end
+  before(:context) { load 'spec/support/define_rails_classes.rb' }
+  after(:context)  { load 'spec/support/teardown_rails_classes.rb' }
 
   context 'NOHTTP' do
     let(:loglevel) { Loglevel.setup }

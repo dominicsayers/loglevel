@@ -29,8 +29,8 @@ class Loglevel
       debug = classes.map do |klass|
         l = klass.logger || Struct.new(:level).new(0)
         d = l.instance_variable_get('@logdev') || Struct.new(:filename, :dev).new
-        f = d.filename || d.dev || 'nil'
-        v = self.class::LOGLEVELS[l.level]
+        f = d.filename || d.dev.inspect || 'nil'
+        v = l.level.is_a?(0.class) ? self.class::LOGLEVELS[l.level] : 'nil'
         "#{klass}: logger=#{l.class}, device=#{f}, level=#{v}"
       end
 

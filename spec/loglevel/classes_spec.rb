@@ -16,6 +16,13 @@ RSpec.describe Loglevel::Classes do
       Object.send(:remove_const, :Rails)
       Object.send(:remove_const, :HttpLogger)
     end
+
+    it 'defaults to Logger' do
+      expect { Loglevel.new.send(:logger_class) }.to raise_error(
+        Loglevel::Exception::BadLoggerClass,
+        "Can't find logger class Logger - have you required it?"
+      )
+    end
   end
 
   context 'classes from environment variable' do

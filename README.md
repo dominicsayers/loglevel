@@ -58,9 +58,31 @@ There are specific options to handle Railsy logging scenarios: things like
 controlling ActiveRecord logging. There are also specific options for handling
 the HttpLogger gem.
 
+### Rails initialization
+
+In a Rails context, we want Loglevel to be configured *after* Rails's own logger
+has been initialized but before any other app initialization has taken place.
+This allows us to control the logging of other components' initialization.
+
+The best way I have found of doing this is to create a script in the
+`config/initializers` directory. These initializers are executed in alphabetical
+order so you can control when Loglevel is initialized by carefully naming your
+script.
+
+To initialize Loglevel first, create a script called `01_loglevel.rb` with the
+single line
+
+```
+Loglevel.setup
+```
+
+To understand which other points in the Rails initialization process you can
+choose, see [The Rails Initialization Process](http://guides.rubyonrails.org/initialization.html).
+
 ### Logger
 
-By default Loglevel will instantiate Ruby's default Logger class. If you want to
+By default Loglevel will instantiate Ruby's default Logger class (in a Rails
+context this will be something like ActiveSupport::TaggedLogging). If you want to
 use a different logger then you can use an environment variable to tell Loglevel
 which logger you use:
 

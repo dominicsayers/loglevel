@@ -1,3 +1,4 @@
+require 'loglevel/exception'
 require 'loglevel/classes'
 require 'loglevel/active_record'
 require 'loglevel/http_logger'
@@ -79,7 +80,17 @@ class Loglevel
   end
 
   def logger_class
-    Object.const_get ENV.fetch(ENV_VAR_LOGGER, 'Logger')
+    Object.const_get logger_class_name
+  rescue NameError => e
+    fail Loglevel::Exception::BadLoggerClass, "Can't find logger class #{logger_class_name} - have you required it?"
+  end
+
+  def logger_class_name
+    @logger_class_name ||= ENV.fetch(ENV_VAR_LOGGER, logger_class_name_default)
+  end
+
+  def logger_class_name_default
+    @logger_class_default ||= defined?(::Rails) && ::Rails.logger ? ::Rails.logger.class.name : 'Logger'
   end
 
   def device
