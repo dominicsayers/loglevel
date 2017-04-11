@@ -18,7 +18,6 @@ class Loglevel
     end
 
     def setup_active_record_logger_not_to_log
-      ::ActiveRecord::Base.logger = null_logger
       ::ActiveRecord::Base.logger.level = Loglevel::FATAL
     end
   end

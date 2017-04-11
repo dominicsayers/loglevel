@@ -26,7 +26,7 @@ RSpec.describe Loglevel::Classes do
   end
 
   context 'classes from environment variable' do
-    before { ENV.store  Loglevel::ENV_VAR_CLASSES, 'String,Array , Hash,MyClass' } # the spaces are intentional
+    before { ENV.store  Loglevel::ENV_VAR_CLASSES, 'String,Array , Hash,MyClass' } # the spacing is intentional
     after  { ENV.delete Loglevel::ENV_VAR_CLASSES }
 
     it 'returns classes that exist' do

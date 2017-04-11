@@ -29,7 +29,6 @@ class Loglevel
     end
 
     def setup_http_logger_not_to_log
-      ::HttpLogger.logger = null_logger
       ::HttpLogger.level = :fatal
     end
   end

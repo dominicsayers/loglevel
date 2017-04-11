@@ -93,7 +93,15 @@ class Loglevel
   end
 
   def logger_class_name_default
-    @logger_class_default ||= default_logger ? default_logger.class.name : 'Logger'
+    @logger_class_default ||= if default_logger.nil? || default_logger_not_instantiatable?
+                                'Logger'
+                              else
+                                default_logger.class.name
+                              end
+  end
+
+  def default_logger_not_instantiatable?
+    defined?(ActiveSupport::TaggedLogging) && default_logger.is_a?(ActiveSupport::TaggedLogging)
   end
 
   def use_default_logger?
@@ -110,16 +118,6 @@ class Loglevel
 
   def device_name
     ENV.fetch(ENV_VAR_DEVICE, 'STDOUT')
-  end
-
-  # Implementing as a method in case someone wants to detect the OS and make
-  # an OS-dependent null device
-  def null_device
-    @null_device ||= '/dev/null'
-  end
-
-  def null_logger
-    @null_logger ||= logger_class.new null_device
   end
 
   def lookup(setting)

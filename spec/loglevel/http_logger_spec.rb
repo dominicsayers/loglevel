@@ -10,8 +10,9 @@ RSpec.describe Loglevel::HttpLogger do
 
     it 'has the expected HttpLogger settings' do
       loglevel # force instantiation
-      expect(::HttpLogger.logger).to eq loglevel.send(:null_logger)
       expect(::HttpLogger.level).to eq :fatal
+      expect(::HttpLogger.logger.level).to eq Loglevel::FATAL
+      expect(::Rails.logger.level).to eq Loglevel::WARN
     end
   end
 end

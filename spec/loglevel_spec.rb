@@ -115,7 +115,7 @@ RSpec.describe Loglevel do
 
       it 'has the expected ActiveRecord::Base settings' do
         loglevel # force instantiation
-        expect(::ActiveRecord::Base.logger).to eq loglevel.send(:null_logger)
+        expect(::ActiveRecord::Base.logger.level).to eq Loglevel::FATAL
       end
 
       it 'has the expected HttpLogger settings' do
