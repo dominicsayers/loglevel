@@ -18,7 +18,9 @@ class Loglevel
     end
 
     def setup_active_record_logger_not_to_log
+      puts 'Setting ActiveRecord to log only FATAL messages' # debug
       ::ActiveRecord::Base.logger.level = Loglevel::FATAL
+      puts "Level: #{::ActiveRecord::Base.logger.level}" # debug
     end
   end
 end

@@ -16,6 +16,10 @@ Usage:
 LOGLEVEL=WARN rails server
 ```
 
+Loglevel will direct your logging to `STDOUT` (as suggested in
+[the 12-factor app](https://12factor.net/logs)). See the Log Device section
+below for how to control where your logging goes.
+
 ### Features
 
 Control which components create visible log entries by simply setting an

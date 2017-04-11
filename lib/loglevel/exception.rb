@@ -1,6 +1,8 @@
-class Loglevel
+module Loglevel
   # Local exception classes to make handling exceptions easier
   class Exception < RuntimeError
-    BadLoggerClass = Class.new(self)
+    UnknownLoggableClass = Class.new(self)
+    UnknownLoggerClass = Class.new(self)
+    ClassNotLoggable = Class.new(self)
   end
 end

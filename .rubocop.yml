@@ -47,3 +47,6 @@ Style/ExtraSpacing:
 Lint/LiteralInInterpolation:
   Description: 'Avoid interpolating literals in strings'
   AutoCorrect: true
+
+Style/ModuleFunction:
+  EnforcedStyle: extend_self # Allows us to have private methods too
