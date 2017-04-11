@@ -13,9 +13,9 @@ class MyDefaultLogger
   FATAL = 4
   attr_accessor :level
 
-  def initialize(device)
-    @logdev = MyLogDevice.new(device)
-    @level = WARN
+  def initialize(logdev, *_)
+    @logdev = logdev
+    self.level = WARN
   end
 
   def info(*_); end
@@ -23,7 +23,7 @@ end
 
 module MyClass
   def logger
-    @logger ||= MyDefaultLogger.new(STDOUT)
+    @logger ||= MyDefaultLogger.new(MyLogDevice.new(STDOUT))
   end
 
   def logger=(value)
