@@ -32,12 +32,6 @@ LOGLEVEL=DEBUG,NOAR,NOHTTP rails server
 would set the Rails logger level to `:debug` but would suppress messages from
 the ActiveRecord logger and the HttpLogger gem.
 
-The features are itemized if you use the `HELP` option:
-
-```sh
-LOGLEVEL=HELP rails console
-```
-
 Here are the available settings:
 
 | Option    | Description                                 |
