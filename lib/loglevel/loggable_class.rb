@@ -46,7 +46,7 @@ module Loglevel
     def klass
       @klass ||= Object.const_get(canonical_name)
     rescue NameError => exception
-      handle_unloggable_class(exception)
+      Loglevel::Exception.handle_bad_class class_name, exception, Loglevel::Exception::UnknownLoggableClass
     end
 
     def canonical_name
@@ -59,14 +59,6 @@ module Loglevel
 
     def smart_logger
       @smart_logger ||= SmartLogger.clone # More testable
-    end
-
-    def handle_unloggable_class(exception)
-      raise exception unless  exception.class == NameError &&
-                              class_name.respond_to?(:split) &&
-                              exception.message =~ /.+constant.+#{class_name.split(Loglevel::SRO).first}/
-
-      raise Loglevel::Exception::UnknownLoggableClass, class_name
     end
   end
 end

@@ -19,7 +19,7 @@ module Loglevel
         def logger_class
           @logger_class ||= Object.const_get class_name
         rescue NameError => exception
-          handle_unknown_class(exception)
+          Loglevel::Exception.handle_bad_class class_name, exception, Loglevel::Exception::UnknownLoggerClass
         end
 
         def class_name
@@ -36,14 +36,6 @@ module Loglevel
 
         def device
           @device ||= Loglevel.clone.device # More testable
-        end
-
-        def handle_unknown_class(exception)
-          raise exception unless  exception.class == NameError &&
-                                  class_name.respond_to?(:split) &&
-                                  exception.message =~ /.+constant.+#{class_name.split(Loglevel::SRO).first}/
-
-          raise Loglevel::Exception::UnknownLoggerClass, class_name
         end
       end
     end
