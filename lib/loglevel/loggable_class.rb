@@ -7,7 +7,7 @@ module Loglevel
     alias to_s class_name
 
     def setup
-      self.logger = SmartLogger.create
+      self.logger = smart_logger.create
       logger.level = level.value
       klass.logger = logger
       additional_http_setup
@@ -15,10 +15,6 @@ module Loglevel
 
     def level
       @level ||= Level.new(self)
-    end
-
-    def rails?
-      @rails ||= canonical_name == '::Rails'
     end
 
     def active_record?
@@ -59,6 +55,10 @@ module Loglevel
 
     def settings
       @settings ||= Loglevel::Settings.clone # More testable
+    end
+
+    def smart_logger
+      @smart_logger ||= SmartLogger.clone # More testable
     end
 
     def handle_unloggable_class(exception)

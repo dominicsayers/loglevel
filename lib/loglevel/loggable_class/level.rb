@@ -15,21 +15,21 @@ module Loglevel
 
       extend Forwardable
 
-      def_delegators :loggable_name, :klass, :rails?, :active_record?, :http?
+      def_delegators :loggable_class, :active_record?, :http?
 
-      attr_reader :loggable_name
+      attr_reader :loggable_class
 
-      def initialize(loggable_name, settings = nil)
-        @loggable_name = loggable_name
+      def initialize(loggable_class, settings = nil)
+        @loggable_class = loggable_class
         @settings = settings
       end
 
       def http_level_name
-        @http_level_name ||= 'FATAL' if loggable_name.http? && !settings.http?
+        @http_level_name ||= 'FATAL' if loggable_class.http? && !settings.http?
       end
 
       def active_record_level_name
-        @active_record_level_name ||= 'FATAL' if loggable_name.active_record? && !settings.active_record?
+        @active_record_level_name ||= 'FATAL' if loggable_class.active_record? && !settings.active_record?
       end
 
       def environment_level_name

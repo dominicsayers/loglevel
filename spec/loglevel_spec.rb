@@ -24,6 +24,43 @@ RSpec.describe Loglevel do
           Hash[name: 'HttpLogger', logger: ActiveSupport::TaggedLogging, level: 'WARN']
         )
       end
+
+      context 'HTTP but not ActiveRecord' do
+        before { ENV.store Loglevel::ENV_VAR_LEVEL, 'INFO,NOBODY,NOHEADERS,NOAR' }
+        after { ENV.delete Loglevel::ENV_VAR_LEVEL }
+
+        it 'has the expected ActiveRecord::Base settings' do
+          loglevel.setup
+          expect(::ActiveRecord::Base.logger.level).to eq Loglevel::FATAL
+        end
+
+        it 'has the expected HttpLogger settings' do
+          loglevel.setup
+          expect(::HttpLogger.level).to eq :info
+          expect(::HttpLogger.log_response_body).to be_falsey
+          expect(::HttpLogger.log_headers).to be_falsey
+          expect(::HttpLogger.ignore).to include(/9200/, /7474/)
+        end
+      end
+
+      context 'ActiveRecord but not HTTP' do
+        before { ENV.store Loglevel::ENV_VAR_LEVEL, 'INFO,NOHTTP' }
+        after { ENV.delete Loglevel::ENV_VAR_LEVEL }
+
+        it 'has the expected ActiveRecord::Base settings' do
+          loglevel.setup
+          expect(::ActiveRecord::Base.logger).to be_a ActiveSupport::TaggedLogging
+          expect(::ActiveRecord::Base.logger.level).to eq Loglevel::INFO
+        end
+
+        it 'has the expected HttpLogger settings' do
+          loglevel.setup
+          expect(::HttpLogger.level).to eq :fatal
+          expect(::HttpLogger.log_response_body).to be_truthy
+          expect(::HttpLogger.log_headers).to be_truthy
+          expect(::HttpLogger.ignore).to include(/9200/, /7474/)
+        end
+      end
     end
   end
 end
