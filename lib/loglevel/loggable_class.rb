@@ -44,9 +44,7 @@ module Loglevel
     end
 
     def klass
-      @klass ||= Object.const_get(canonical_name)
-    rescue NameError => exception
-      Loglevel::Exception.handle_bad_class class_name, exception, Loglevel::Exception::UnknownLoggableClass
+      @klass ||= Loglevel.name_to_class(canonical_name, Loglevel::Exception::UnknownLoggableClass)
     end
 
     def canonical_name

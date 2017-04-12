@@ -17,9 +17,7 @@ module Loglevel
         end
 
         def logger_class
-          @logger_class ||= Object.const_get class_name
-        rescue NameError => exception
-          Loglevel::Exception.handle_bad_class class_name, exception, Loglevel::Exception::UnknownLoggerClass
+          @logger_class ||= loglevel.name_to_class(class_name, Loglevel::Exception::UnknownLoggerClass)
         end
 
         def class_name
@@ -35,7 +33,11 @@ module Loglevel
         end
 
         def device
-          @device ||= Loglevel.clone.device # More testable
+          @device ||= loglevel.device
+        end
+
+        def loglevel
+          @loglevel ||= Loglevel.clone # More testable
         end
       end
     end

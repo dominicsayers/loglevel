@@ -20,4 +20,10 @@ module Loglevel
   def loggable_classes
     @loggable_classes ||= LoggableClasses.clone # More testable
   end
+
+  def name_to_class(class_name, exception_class)
+    Object.const_get(class_name)
+  rescue NameError => exception
+    Loglevel::Exception.handle_bad_class(class_name, exception, exception_class)
+  end
 end
