@@ -16,6 +16,10 @@ Usage:
 LOGLEVEL=WARN rails server
 ```
 
+Loglevel will direct your logging to `STDOUT` (as suggested in
+[the 12-factor app](https://12factor.net/logs)). See the Log Device section
+below for how to control where your logging goes.
+
 ### Features
 
 Control which components create visible log entries by simply setting an
@@ -27,12 +31,6 @@ LOGLEVEL=DEBUG,NOAR,NOHTTP rails server
 
 would set the Rails logger level to `:debug` but would suppress messages from
 the ActiveRecord logger and the HttpLogger gem.
-
-The features are itemized if you use the `HELP` option:
-
-```sh
-LOGLEVEL=HELP rails console
-```
 
 Here are the available settings:
 
