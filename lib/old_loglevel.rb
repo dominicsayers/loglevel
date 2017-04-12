@@ -67,10 +67,8 @@ class Loglevel
   # Setup any other classes (e.g. Rails)
   def setup_remaining_classes
     @classes_to_setup.each do |klass|
-      puts "#{klass} before: #{::ActiveRecord::Base.logger.level}" # debug
       klass.logger = logger.dup
       klass.logger.level = level
-      puts "#{klass} after: #{::ActiveRecord::Base.logger.level}" # debug
     end
   end
 

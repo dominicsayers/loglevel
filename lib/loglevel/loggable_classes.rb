@@ -8,7 +8,6 @@ module Loglevel
       def_delegators :classes, :each, :map, :length
 
       def classes
-        puts "Getting classes. class_names == #{class_names}" # debug
         @classes ||= class_names.map { |class_name| class_from_name(class_name) }.compact
       end
 

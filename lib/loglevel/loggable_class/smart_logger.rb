@@ -9,7 +9,7 @@ module Loglevel
         private
 
         def simple_logger
-          @simple_logger ||= logger_class.new Loglevel.device
+          logger_class.new Loglevel.device
         end
 
         def enhanced_logger

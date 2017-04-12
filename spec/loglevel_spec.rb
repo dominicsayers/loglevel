@@ -19,9 +19,9 @@ RSpec.describe Loglevel do
         loglevel.setup
 
         expect(loglevel.debug).to include(
-          Hash[name: 'Rails', logger: NilClass, level: 'WARN'],
-          Hash[name: 'ActiveRecord::Base', logger: NilClass, level: 'WARN'],
-          Hash[name: 'HttpLogger', logger: NilClass, level: 'WARN']
+          Hash[name: 'Rails', logger: ActiveSupport::TaggedLogging, level: 'WARN'],
+          Hash[name: 'ActiveRecord::Base', logger: ActiveSupport::TaggedLogging, level: 'WARN'],
+          Hash[name: 'HttpLogger', logger: ActiveSupport::TaggedLogging, level: 'WARN']
         )
       end
     end

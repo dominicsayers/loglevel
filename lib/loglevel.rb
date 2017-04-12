@@ -10,7 +10,7 @@ module Loglevel
   end
 
   def debug
-    loggable_classes.map { |c| { name: c.name.to_s, logger: c.logger.class, level: c.level.level_name } }
+    loggable_classes.map { |c| { name: c.class_name, logger: c.logger.class, level: c.level.level_name } }
   end
 
   def device
@@ -18,6 +18,6 @@ module Loglevel
   end
 
   def loggable_classes
-    LoggableClasses.clone # For testing
+    @loggable_classes ||= LoggableClasses.clone # More testable
   end
 end

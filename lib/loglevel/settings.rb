@@ -14,6 +14,14 @@ module Loglevel
       !lookup('NOAR')
     end
 
+    def response_body?
+      !lookup('NOBODY')
+    end
+
+    def request_headers?
+      !lookup('NOHEADERS')
+    end
+
     private
 
     def lookup(setting)

@@ -3,9 +3,9 @@ module Loglevel
   LOGLEVELS.each_with_index { |k, v| const_set(k, v) }
 
   ENV_VAR_LEVEL   = 'LOGLEVEL'.freeze
-  ENV_VAR_LOGGER  = 'LOGLEVEL_LOGGER'.freeze
-  ENV_VAR_DEVICE  = 'LOGLEVEL_DEVICE'.freeze
-  ENV_VAR_CLASSES = 'LOGLEVEL_CLASSES'.freeze
+  ENV_VAR_LOGGER  = 'LOGGER'.freeze
+  ENV_VAR_DEVICE  = 'LOGDEVICE'.freeze
+  ENV_VAR_CLASSES = 'LOGCLASSES'.freeze
 
   SCOPE_RESOLUTION_OPERATOR = SRO = '::'.freeze
 end
