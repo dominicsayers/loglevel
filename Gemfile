@@ -1,24 +1,22 @@
-# frozen_string_literal: true
-
 source 'https://rubygems.org'
 gemspec
 ruby RUBY_VERSION
 
 group :development do
-  gem 'bundler'
-  gem 'gem-release'
-  gem 'github_changelog_generator'
-  gem 'guard'
-  gem 'guard-rspec'
-  gem 'guard-rubocop'
+  gem 'bundler', require: false
+  gem 'gem-release', require: false
+  gem 'github_changelog_generator', require: false
+  gem 'guard', require: false
+  gem 'guard-rspec', require: false
+  gem 'guard-rubocop', require: false
+  gem 'rubocop-rspec', require: false
 end
 
 group :test do
-  gem 'codeclimate-test-reporter'
-  gem 'coveralls'
-  gem 'fuubar'
-  gem 'rake' # Workaround for a bug in Rainbow 2.2.1 https://github.com/sickill/rainbow/issues/44
-  gem 'rspec'
-  gem 'rspec_junit_formatter'
-  gem 'simplecov'
+  gem 'codeclimate-test-reporter', require: false
+  gem 'coveralls', require: false
+  gem 'fuubar', require: false
+  gem 'rspec', require: false
+  gem 'rspec_junit_formatter', require: false
+  gem 'simplecov', '~> 0.14', require: false
 end
