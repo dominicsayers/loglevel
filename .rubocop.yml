@@ -1,6 +1,8 @@
 ---
+require: rubocop-rspec
+
 AllCops:
-  TargetRubyVersion: 2.0
+  TargetRubyVersion: 2.2
   DisplayCopNames: true
   Exclude:
     - 'tmp/**/*'
@@ -19,21 +21,17 @@ StringLiterals:
   Enabled: true
 
 DotPosition:
-  Description: 'Checks the position of the dot in multi-line method calls.'
   EnforcedStyle: leading
   Enabled: true
 
 ClassAndModuleChildren:
-  Description: 'Checks style of children classes and modules.'
   EnforcedStyle: nested
   Enabled: true
 
 Documentation:
-  Description: 'Document classes and non-namespace modules.'
   Enabled: false
 
 FileName:
-  Description: 'Use snake_case for source file names.'
   Enabled: true
 
 LineLength:
@@ -41,11 +39,9 @@ LineLength:
   Enabled: true
 
 Style/ExtraSpacing:
-  Description: 'Do not use unnecessary spacing.'
   Enabled: true
 
 Lint/LiteralInInterpolation:
-  Description: 'Avoid interpolating literals in strings'
   AutoCorrect: true
 
 Style/ModuleFunction:

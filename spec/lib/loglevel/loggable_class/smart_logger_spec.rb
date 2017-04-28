@@ -1,5 +1,5 @@
 RSpec.describe Loglevel::LoggableClass::SmartLogger do
-  let(:smart_logger) { Loglevel::LoggableClass::SmartLogger.clone }
+  let(:smart_logger) { described_class.clone }
 
   context 'no environment variable' do
     it 'handles no available logger class' do
@@ -24,11 +24,15 @@ RSpec.describe Loglevel::LoggableClass::SmartLogger do
     end
 
     context 'logger class is available' do
-      before { ENV.store  Loglevel::ENV_VAR_LOGGER, 'String' }
-      after  { ENV.delete Loglevel::ENV_VAR_LOGGER }
+      before do
+        ENV.store  Loglevel::ENV_VAR_LOGGER, 'String'
+        ENV.store  Loglevel::ENV_VAR_DEVICE, 'tmp/test.log'
+      end
 
-      before { ENV.store  Loglevel::ENV_VAR_DEVICE, 'tmp/test.log' }
-      after  { ENV.delete Loglevel::ENV_VAR_DEVICE }
+      after do
+        ENV.delete Loglevel::ENV_VAR_LOGGER
+        ENV.delete Loglevel::ENV_VAR_DEVICE
+      end
 
       it 'returns an instance of the logger class' do
         expect(smart_logger.create).to eq('tmp/test.log')
