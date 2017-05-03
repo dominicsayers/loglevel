@@ -75,7 +75,6 @@ module HttpLogger
     end
 
     def log_response_body=(value)
-      puts "#{value} (#{value.class})" # debug
       @log_response_body = value if [true, false].include?(value)
     end
 

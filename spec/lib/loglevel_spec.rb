@@ -33,11 +33,29 @@ RSpec.describe Loglevel do
     end
 
     context 'HTTP but not ActiveRecord' do
-      it_behaves_like 'expected_log_settings', 'INFO,NOBODY,NOHEADERS,NOAR', Loglevel::FATAL, :info, false, false
+      params = {
+        env: 'INFO,NOBODY,NOHEADERS,NOAR',
+        active_record_level: Loglevel::FATAL,
+        http_level: :info,
+        log_response_body: false,
+        log_headers: false,
+        ignore: [/9200/, /7474/]
+      }
+
+      it_behaves_like 'expected_log_settings', params
     end
 
     context 'ActiveRecord but not HTTP' do
-      it_behaves_like 'expected_log_settings', 'INFO,NOHTTP', Loglevel::INFO, :fatal, true, true
+      params = {
+        env: 'INFO,NOHTTP',
+        active_record_level: Loglevel::INFO,
+        http_level: :warn,
+        log_response_body: nil,
+        log_headers: nil,
+        ignore: []
+      }
+
+      it_behaves_like 'expected_log_settings', params
 
       it 'has the expected ActiveRecord::Base settings' do
         expect(::ActiveRecord::Base.logger).to be_a ActiveSupport::TaggedLogging

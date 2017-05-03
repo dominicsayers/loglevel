@@ -29,7 +29,7 @@ RSpec.describe Loglevel::LoggableClass::Level do
 
   context 'with environment variable' do
     context 'no HTTP logging' do
-      it_behaves_like 'expected_log_levels', 'noHTTP', 'WARN', 'FATAL', 'WARN'
+      it_behaves_like 'expected_log_levels', 'noHTTP', 'WARN', 'DEBUG', 'WARN'
     end
 
     context 'no ActiveRecord logging' do
@@ -37,7 +37,7 @@ RSpec.describe Loglevel::LoggableClass::Level do
     end
 
     context 'no HTTP or ActiveRecord logging' do
-      it_behaves_like 'expected_log_levels', 'noAR,nOhTtP', 'WARN', 'FATAL', 'FATAL'
+      it_behaves_like 'expected_log_levels', 'noAR,nOhTtP', 'WARN', 'DEBUG', 'FATAL'
     end
   end
 end

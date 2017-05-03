@@ -34,18 +34,29 @@ module Loglevel
 
     def initialize(class_name)
       @class_name = class_name
-      self.logger = smart_logger
-      logger.level = level.value
-      klass.logger = logger
-      additional_http_setup
+      http? ? http_setup : regular_setup
     rescue NoMethodError => exception
       raise unless exception.message =~ /undefined method `logger='/
       raise Loglevel::Exception::ClassNotLoggable, class_name
     end
 
-    def additional_http_setup
-      return unless http?
+    # Setup for regular classes where we are setting the level of message we
+    # want to see
+    def regular_setup
+      self.logger = smart_logger
+      logger.level = level.value
+      klass.logger = logger
+    end
 
+    # Setup for HttpLogger. Here we are setting the level at which to log HTTP
+    # interactions
+    def http_setup
+      return unless http? && settings.http?
+      regular_setup
+      additional_http_setup
+    end
+
+    def additional_http_setup
       klass.level = level.level_name.downcase.to_sym
       klass.log_response_body = settings.response_body?
       klass.log_headers = settings.request_headers?
