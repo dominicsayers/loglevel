@@ -1,7 +1,7 @@
 # Change Log
 
-## [1.0.1](https://github.com/dominicsayers/loglevel/tree/1.0.1) (2017-05-03)
-[Full Changelog](https://github.com/dominicsayers/loglevel/compare/v1.0.0...1.0.1)
+## [v1.0.1](https://github.com/dominicsayers/loglevel/tree/v1.0.1) (2017-05-03)
+[Full Changelog](https://github.com/dominicsayers/loglevel/compare/v1.0.0...v1.0.1)
 
 **Closed issues:**
 
