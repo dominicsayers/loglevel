@@ -1,8 +1,58 @@
 # Change Log
 
-## [Unreleased](https://github.com/dominicsayers/loglevel/tree/HEAD)
+## [1.0.1](https://github.com/dominicsayers/loglevel/tree/1.0.1) (2017-05-03)
+[Full Changelog](https://github.com/dominicsayers/loglevel/compare/v1.0.0...1.0.1)
 
-[Full Changelog](https://github.com/dominicsayers/loglevel/compare/v0.1.1...HEAD)
+**Closed issues:**
+
+- Include the rubocop rspec gem and improve the code quality of the specs [\#5](https://github.com/dominicsayers/loglevel/issues/5)
+
+**Merged pull requests:**
+
+- Release v1.0.1 [\#6](https://github.com/dominicsayers/loglevel/pull/6) ([dominicsayers](https://github.com/dominicsayers))
+
+## [v1.0.0](https://github.com/dominicsayers/loglevel/tree/v1.0.0) (2017-04-12)
+[Full Changelog](https://github.com/dominicsayers/loglevel/compare/v0.4.6...v1.0.0)
+
+**Merged pull requests:**
+
+- Refactor to simplify class structure [\#3](https://github.com/dominicsayers/loglevel/pull/3) ([dominicsayers](https://github.com/dominicsayers))
+
+## [v0.4.6](https://github.com/dominicsayers/loglevel/tree/v0.4.6) (2017-04-11)
+[Full Changelog](https://github.com/dominicsayers/loglevel/compare/v0.4.5...v0.4.6)
+
+## [v0.4.5](https://github.com/dominicsayers/loglevel/tree/v0.4.5) (2017-04-10)
+[Full Changelog](https://github.com/dominicsayers/loglevel/compare/v0.4.4...v0.4.5)
+
+## [v0.4.4](https://github.com/dominicsayers/loglevel/tree/v0.4.4) (2017-04-10)
+[Full Changelog](https://github.com/dominicsayers/loglevel/compare/v0.4.2...v0.4.4)
+
+## [v0.4.2](https://github.com/dominicsayers/loglevel/tree/v0.4.2) (2017-04-10)
+[Full Changelog](https://github.com/dominicsayers/loglevel/compare/v0.4.1...v0.4.2)
+
+## [v0.4.1](https://github.com/dominicsayers/loglevel/tree/v0.4.1) (2017-04-10)
+[Full Changelog](https://github.com/dominicsayers/loglevel/compare/v0.4.0...v0.4.1)
+
+## [v0.4.0](https://github.com/dominicsayers/loglevel/tree/v0.4.0) (2017-04-10)
+[Full Changelog](https://github.com/dominicsayers/loglevel/compare/v0.3.0...v0.4.0)
+
+## [v0.3.0](https://github.com/dominicsayers/loglevel/tree/v0.3.0) (2017-04-05)
+[Full Changelog](https://github.com/dominicsayers/loglevel/compare/v0.2.4...v0.3.0)
+
+## [v0.2.4](https://github.com/dominicsayers/loglevel/tree/v0.2.4) (2017-04-01)
+[Full Changelog](https://github.com/dominicsayers/loglevel/compare/v0.2.3...v0.2.4)
+
+## [v0.2.3](https://github.com/dominicsayers/loglevel/tree/v0.2.3) (2017-03-31)
+[Full Changelog](https://github.com/dominicsayers/loglevel/compare/v0.2.2...v0.2.3)
+
+## [v0.2.2](https://github.com/dominicsayers/loglevel/tree/v0.2.2) (2017-03-31)
+[Full Changelog](https://github.com/dominicsayers/loglevel/compare/v0.2.1...v0.2.2)
+
+## [v0.2.1](https://github.com/dominicsayers/loglevel/tree/v0.2.1) (2017-03-31)
+[Full Changelog](https://github.com/dominicsayers/loglevel/compare/v0.2.0...v0.2.1)
+
+## [v0.2.0](https://github.com/dominicsayers/loglevel/tree/v0.2.0) (2017-03-31)
+[Full Changelog](https://github.com/dominicsayers/loglevel/compare/v0.1.1...v0.2.0)
 
 **Merged pull requests:**
 

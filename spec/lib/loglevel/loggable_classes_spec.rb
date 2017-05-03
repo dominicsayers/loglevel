@@ -16,8 +16,8 @@ RSpec.describe Loglevel::LoggableClasses do
   context 'with Rails classes defined' do
     let(:loggable_classes) { described_class.clone }
 
-    before { load 'spec/support/setup_rails_classes.rb' }
-    after  { load 'spec/support/teardown_rails_classes.rb' }
+    before { load 'fixtures/setup_rails_classes.rb' }
+    after  { load 'fixtures/teardown_rails_classes.rb' }
     it('has the expected loggable classes') { expect(loggable_classes.length).to eq(3) }
   end
 end

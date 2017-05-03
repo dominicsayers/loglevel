@@ -1,5 +1,8 @@
 RSpec.describe Loglevel do
   context 'no Rails environment' do
+    before { load 'fixtures/setup_logger_class.rb' }
+    after  { load 'fixtures/teardown_logger_class.rb' }
+
     let(:loglevel) { described_class.clone }
 
     it 'sets up with the expected defaults' do
@@ -19,30 +22,10 @@ RSpec.describe Loglevel do
       ]
     end
 
-    before { load 'spec/support/setup_rails_classes.rb' }
-    after  { load 'spec/support/teardown_rails_classes.rb' }
+    before { load 'fixtures/setup_rails_classes.rb' }
+    after  { load 'fixtures/teardown_rails_classes.rb' }
 
-    shared_examples 'expected_log_settings' do |active_record_level, http_level, log_response_body, log_headers|
-      it 'has the expected ActiveRecord::Base settings' do
-        expect(::ActiveRecord::Base.logger.level).to eq active_record_level
-      end
-
-      it 'has the expected HttpLogger level' do
-        expect(::HttpLogger.level).to eq http_level
-      end
-
-      it 'has the expected HttpLogger log_response_body setting' do
-        expect(::HttpLogger.log_response_body).to((log_response_body ? be_truthy : be_falsey))
-      end
-
-      it 'has the expected HttpLogger log_headers setting' do
-        expect(::HttpLogger.log_headers).to((log_headers ? be_truthy : be_falsey))
-      end
-
-      it 'has the expected HttpLogger ignore setting' do
-        expect(::HttpLogger.ignore).to include(/9200/, /7474/)
-      end
-    end
+    require 'shared_examples/expected_log_settings'
 
     it 'sets up with the expected defaults' do
       loglevel.setup
@@ -50,25 +33,29 @@ RSpec.describe Loglevel do
     end
 
     context 'HTTP but not ActiveRecord' do
-      before do
-        ENV.store Loglevel::ENV_VAR_LEVEL, 'INFO,NOBODY,NOHEADERS,NOAR'
-        loglevel.setup
-      end
+      params = {
+        env: 'INFO,NOBODY,NOHEADERS,NOAR',
+        active_record_level: Loglevel::FATAL,
+        http_level: :info,
+        log_response_body: false,
+        log_headers: false,
+        ignore: [/9200/, /7474/]
+      }
 
-      after { ENV.delete Loglevel::ENV_VAR_LEVEL }
-
-      it_behaves_like 'expected_log_settings', Loglevel::FATAL, :info, false, false
+      it_behaves_like 'expected_log_settings', params
     end
 
     context 'ActiveRecord but not HTTP' do
-      before do
-        ENV.store Loglevel::ENV_VAR_LEVEL, 'INFO,NOHTTP'
-        loglevel.setup
-      end
+      params = {
+        env: 'INFO,NOHTTP',
+        active_record_level: Loglevel::INFO,
+        http_level: :warn,
+        log_response_body: nil,
+        log_headers: nil,
+        ignore: []
+      }
 
-      after { ENV.delete Loglevel::ENV_VAR_LEVEL }
-
-      it_behaves_like 'expected_log_settings', Loglevel::INFO, :fatal, true, true
+      it_behaves_like 'expected_log_settings', params
 
       it 'has the expected ActiveRecord::Base settings' do
         expect(::ActiveRecord::Base.logger).to be_a ActiveSupport::TaggedLogging

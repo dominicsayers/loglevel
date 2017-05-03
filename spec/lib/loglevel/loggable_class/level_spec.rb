@@ -3,10 +3,13 @@ RSpec.describe Loglevel::LoggableClass::Level do
   let(:http) { Loglevel::LoggableClass.new('HttpLogger') }
   let(:active_record) { Loglevel::LoggableClass.new('ActiveRecord::Base') }
 
-  before { load 'spec/support/setup_rails_classes.rb' }
-  after  { load 'spec/support/teardown_rails_classes.rb' }
+  before { load 'fixtures/setup_rails_classes.rb' }
+  after  { load 'fixtures/teardown_rails_classes.rb' }
 
-  shared_examples 'expected_log_levels' do |rails_level, http_level, active_record_level|
+  shared_examples 'expected_log_levels' do |env_var, rails_level, http_level, active_record_level|
+    before { ENV.store(Loglevel::ENV_VAR_LEVEL, env_var) if env_var }
+    after { ENV.delete(Loglevel::ENV_VAR_LEVEL) }
+
     it 'has the expected Rails log level' do
       expect(described_class.new(rails).level_name).to eq(rails_level)
     end
@@ -21,27 +24,20 @@ RSpec.describe Loglevel::LoggableClass::Level do
   end
 
   context 'no environment variable' do
-    it_behaves_like 'expected_log_levels', 'WARN', 'WARN', 'WARN'
+    it_behaves_like 'expected_log_levels', nil, 'WARN', 'WARN', 'WARN'
   end
 
-  context 'no HTTP logging' do
-    before { ENV.store Loglevel::ENV_VAR_LEVEL, 'noHTTP' } # the capitalization is intentional
-    after { ENV.delete Loglevel::ENV_VAR_LEVEL }
+  context 'with environment variable' do
+    context 'no HTTP logging' do
+      it_behaves_like 'expected_log_levels', 'noHTTP', 'WARN', 'DEBUG', 'WARN'
+    end
 
-    it_behaves_like 'expected_log_levels', 'WARN', 'FATAL', 'WARN'
-  end
+    context 'no ActiveRecord logging' do
+      it_behaves_like 'expected_log_levels', 'noAR', 'WARN', 'WARN', 'FATAL'
+    end
 
-  context 'no ActiveRecord logging' do
-    before { ENV.store Loglevel::ENV_VAR_LEVEL, 'noAR' } # the capitalization is intentional
-    after { ENV.delete Loglevel::ENV_VAR_LEVEL }
-
-    it_behaves_like 'expected_log_levels', 'WARN', 'WARN', 'FATAL'
-  end
-
-  context 'no HTTP or ActiveRecord logging' do
-    before { ENV.store Loglevel::ENV_VAR_LEVEL, 'noAR,nOhTtP' } # the capitalization is intentional
-    after { ENV.delete Loglevel::ENV_VAR_LEVEL }
-
-    it_behaves_like 'expected_log_levels', 'WARN', 'FATAL', 'FATAL'
+    context 'no HTTP or ActiveRecord logging' do
+      it_behaves_like 'expected_log_levels', 'noAR,nOhTtP', 'WARN', 'DEBUG', 'FATAL'
+    end
   end
 end

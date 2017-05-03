@@ -1,4 +1,5 @@
 module Loglevel
+  # Parses the environment variable into usable settings
   module Settings
     extend self
 
