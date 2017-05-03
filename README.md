@@ -36,7 +36,6 @@ Here are the available settings:
 
 | Option    | Description                                 |
 | --------- | ------------------------------------------- |
-| HELP      | Show these options                          |
 | FATAL     | Equivalent to config.log_level = :fatal     |
 | ERROR     | Equivalent to config.log_level = :error     |
 | WARN      | Equivalent to config.log_level = :warn      |
