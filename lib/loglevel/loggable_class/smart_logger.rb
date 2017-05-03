@@ -1,5 +1,6 @@
 module Loglevel
   class LoggableClass
+    # The most appropriate logging class for this environment
     class SmartLogger
       class << self
         def create
@@ -17,11 +18,11 @@ module Loglevel
         end
 
         def logger_class
-          @logger_class ||= loglevel.name_to_class(class_name, Loglevel::Exception::UnknownLoggerClass)
+          @logger_class ||= class_name.to_class Loglevel::Exception::UnknownLoggerClass
         end
 
         def class_name
-          @class_name ||= environment_class_name || rails_class_name || 'Logger'
+          @class_name ||= Loglevel::Name.new(environment_class_name || rails_class_name || 'Logger')
         end
 
         def environment_class_name

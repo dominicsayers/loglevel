@@ -1,4 +1,5 @@
 module Loglevel
+  # Parses the environment variable into usable settings
   module Settings
     extend self
 
@@ -20,6 +21,10 @@ module Loglevel
 
     def request_headers?
       !lookup('NOHEADERS')
+    end
+
+    def inspect
+      "#<Loglevel::Settings #{settings}>"
     end
 
     private

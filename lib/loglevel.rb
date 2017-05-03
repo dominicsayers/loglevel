@@ -2,15 +2,17 @@ require 'loglevel/exception'
 require 'loglevel/constants'
 require 'loglevel/loggable_classes'
 
+# Sets up any loggable classes to the log level you specify in an environment
+# variable
 module Loglevel
   extend self
 
   def setup
-    loggable_classes.each(&:setup)
+    loggable_classes.each(&:check)
   end
 
   def debug
-    loggable_classes.map { |c| { name: c.class_name, logger: c.logger.class, level: c.level.level_name } }
+    loggable_classes.map(&:debug)
   end
 
   def device
@@ -19,11 +21,5 @@ module Loglevel
 
   def loggable_classes
     @loggable_classes ||= LoggableClasses.clone # More testable
-  end
-
-  def name_to_class(class_name, exception_class)
-    Object.const_get(class_name)
-  rescue NameError => exception
-    Loglevel::Exception.handle_bad_class(class_name, exception, exception_class)
   end
 end

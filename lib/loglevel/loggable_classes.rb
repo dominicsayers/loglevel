@@ -1,6 +1,9 @@
 require 'loglevel/loggable_class'
+require 'loglevel/name'
 
 module Loglevel
+  # An enumerable holding all classes that can be logged in the current
+  # environment
   module LoggableClasses
     class << self
       extend Forwardable
