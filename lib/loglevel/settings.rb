@@ -23,10 +23,6 @@ module Loglevel
       !lookup('NOHEADERS')
     end
 
-    def inspect
-      "#<Loglevel::Settings #{settings}>"
-    end
-
     private
 
     def lookup(setting)
