@@ -8,19 +8,19 @@ module Loglevel
     end
 
     def http?
-      !lookup('NOHTTP')
+      @http ||= lookup('HTTP') || (level == 'DEBUG' && !lookup('NOHTTP'))
     end
 
     def active_record?
-      !lookup('NOAR')
+      @active_record ||= !lookup('NOAR')
     end
 
     def response_body?
-      !lookup('NOBODY')
+      @response_body ||= !lookup('NOBODY')
     end
 
     def request_headers?
-      !lookup('NOHEADERS')
+      @request_headers ||= !lookup('NOHEADERS')
     end
 
     private

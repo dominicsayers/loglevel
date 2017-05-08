@@ -29,7 +29,7 @@ environment variable. For instance:
 LOGLEVEL=DEBUG,NOAR,NOHTTP rails server
 ```
 
-would set the Rails logger level to `:debug` but would suppress messages from
+would set the Rails logger level to `DEBUG` but would suppress messages from
 the ActiveRecord logger and the HttpLogger gem.
 
 Here are the available settings:
@@ -42,6 +42,7 @@ Here are the available settings:
 | INFO      | Equivalent to config.log_level = :info      |
 | DEBUG     | Equivalent to config.log_level = :debug     |
 | NOAR      | Do not show ActiveRecord messages           |
+| HTTP      | Show HTTP messages                          |
 | NOHTTP    | Do not show HTTP messages                   |
 | NOHEADERS | Do not include response headers in HTTP log |
 | NOBODY    | Do not include response body in HTTP log    |
@@ -52,8 +53,25 @@ The examples in this document assume Loglevel is being used in a Rails
 environment but it doesn't depend on Rails and can be used in other contexts.
 
 There are specific options to handle Railsy logging scenarios: things like
-controlling ActiveRecord logging. There are also specific options for handling
-the HttpLogger gem.
+controlling ActiveRecord logging.
+
+### HttpLogger
+
+The HttpLogger gem works in a slightly different way. When we set the level for HttpLogger we are setting the level *at which* the HTTP messages are logged.
+
+In the Loglevel environment this will be `:debug`, so you will only see HTTP messages if `LOGLEVEL=DEBUG`. If you want to see HTTP messages at a less verbose level then use the `HTTP` parameter when setting `LOGLEVEL`, like this:
+
+```sh
+LOGLEVEL=INFO,HTTP rails server
+```
+
+This will show all messages at `INFO` and above and will also show HTTP messages.
+
+If you want to see `DEBUG` messages but *not* HTTP messages then use the `NOHTTP` parameter:
+
+```sh
+LOGLEVEL=DEBUG,NOHTTP rails server
+```
 
 ### Rails initialization
 

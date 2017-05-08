@@ -17,8 +17,7 @@ RSpec.describe Loglevel do
     let(:debug) do
       [
         { name: 'Rails', logger: ActiveSupport::TaggedLogging, level: 'WARN' },
-        { name: 'ActiveRecord::Base', logger: ActiveSupport::TaggedLogging, level: 'WARN' },
-        { name: 'HttpLogger', logger: ActiveSupport::TaggedLogging, level: 'WARN' }
+        { name: 'ActiveRecord::Base', logger: ActiveSupport::TaggedLogging, level: 'WARN' }
       ]
     end
 
@@ -34,11 +33,11 @@ RSpec.describe Loglevel do
 
     context 'HTTP but not ActiveRecord' do
       params = {
-        env: 'INFO,NOBODY,NOHEADERS,NOAR',
+        env: 'INFO,HTTP,NOBODY,NOAR',
         active_record_level: Loglevel::FATAL,
         http_level: :info,
         log_response_body: false,
-        log_headers: false,
+        log_headers: true,
         ignore: [/9200/, /7474/]
       }
 
@@ -47,8 +46,8 @@ RSpec.describe Loglevel do
 
     context 'ActiveRecord but not HTTP' do
       params = {
-        env: 'INFO,NOHTTP',
-        active_record_level: Loglevel::INFO,
+        env: 'DEBUG,NOHTTP',
+        active_record_level: Loglevel::DEBUG,
         http_level: :warn,
         log_response_body: nil,
         log_headers: nil,

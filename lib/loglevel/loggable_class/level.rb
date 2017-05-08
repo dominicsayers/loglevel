@@ -24,7 +24,7 @@ module Loglevel
       end
 
       def http_level_name
-        @http_level_name ||= 'DEBUG' if http? && !settings.http?
+        @http_level_name ||= settings.level if http? && settings.http?
       end
 
       def active_record_level_name

@@ -51,7 +51,8 @@ module Loglevel
     # Setup for HttpLogger. Here we are setting the level at which to log HTTP
     # interactions
     def http_setup
-      return unless http? && settings.http?
+      return unless http?
+      raise Loglevel::Exception::ClassNotLoggable, class_name unless settings.http?
       regular_setup
       additional_http_setup
     end

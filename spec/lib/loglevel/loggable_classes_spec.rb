@@ -18,6 +18,6 @@ RSpec.describe Loglevel::LoggableClasses do
 
     before { load 'fixtures/setup_rails_classes.rb' }
     after  { load 'fixtures/teardown_rails_classes.rb' }
-    it('has the expected loggable classes') { expect(loggable_classes.length).to eq(3) }
+    it('has the expected loggable classes') { expect(loggable_classes.length).to eq(2) }
   end
 end

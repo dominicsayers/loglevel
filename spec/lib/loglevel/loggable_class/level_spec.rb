@@ -6,38 +6,23 @@ RSpec.describe Loglevel::LoggableClass::Level do
   before { load 'fixtures/setup_rails_classes.rb' }
   after  { load 'fixtures/teardown_rails_classes.rb' }
 
-  shared_examples 'expected_log_levels' do |env_var, rails_level, http_level, active_record_level|
-    before { ENV.store(Loglevel::ENV_VAR_LEVEL, env_var) if env_var }
-    after { ENV.delete(Loglevel::ENV_VAR_LEVEL) }
-
-    it 'has the expected Rails log level' do
-      expect(described_class.new(rails).level_name).to eq(rails_level)
-    end
-
-    it 'has the expected HTTP log level' do
-      expect(described_class.new(http).level_name).to eq(http_level)
-    end
-
-    it 'has the expected ActiveRecord log level' do
-      expect(described_class.new(active_record).level_name).to eq(active_record_level)
-    end
-  end
+  require 'shared_examples/expected_log_levels'
 
   context 'no environment variable' do
-    it_behaves_like 'expected_log_levels', nil, 'WARN', 'WARN', 'WARN'
+    it_behaves_like 'expected_log_levels', nil, 'WARN', nil, 'WARN'
   end
 
   context 'with environment variable' do
     context 'no HTTP logging' do
-      it_behaves_like 'expected_log_levels', 'noHTTP', 'WARN', 'DEBUG', 'WARN'
+      it_behaves_like 'expected_log_levels', 'noHTTP', 'WARN', nil, 'WARN'
     end
 
     context 'no ActiveRecord logging' do
-      it_behaves_like 'expected_log_levels', 'noAR', 'WARN', 'WARN', 'FATAL'
+      it_behaves_like 'expected_log_levels', 'Http,noAR', 'WARN', 'WARN', 'FATAL'
     end
 
     context 'no HTTP or ActiveRecord logging' do
-      it_behaves_like 'expected_log_levels', 'noAR,nOhTtP', 'WARN', 'DEBUG', 'FATAL'
+      it_behaves_like 'expected_log_levels', 'noAR,nOhTtP', 'WARN', nil, 'FATAL'
     end
   end
 end
